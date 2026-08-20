@@ -1,0 +1,65 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model College {
+  id         String         @id @default(cuid())
+  name       String
+  city       String
+  state      String
+  fees       Int
+  rating     Float
+  createdAt  DateTime       @default(now())
+  courses    Course[]
+  cutoffs    CutoffRecord[]
+  placements Placement[]
+  reviews    Review[]
+
+  @@index([city])
+  @@index([rating])
+}
+
+model Course {
+  id        String  @id @default(cuid())
+  collegeId String
+  name      String
+  duration  String
+  fees      Int
+  college   College @relation(fields: [collegeId], references: [id])
+}
+
+model Placement {
+  id             String  @id @default(cuid())
+  collegeId      String
+  year           Int
+  avgPackage     Float
+  highestPackage Float
+  placementRate  Float
+  college        College @relation(fields: [collegeId], references: [id])
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  collegeId String
+  author    String
+  rating    Float
+  comment   String
+  createdAt DateTime @default(now())
+  college   College  @relation(fields: [collegeId], references: [id])
+}
+
+model CutoffRecord {
+  id          String  @id @default(cuid())
+  collegeId   String
+  exam        String
+  category    String
+  closingRank Int
+  college     College @relation(fields: [collegeId], references: [id])
+
+  @@index([exam, category])
+}
