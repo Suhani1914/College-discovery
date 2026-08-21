@@ -1,27 +1,58 @@
 import { useParams, Link } from 'react-router-dom'
 import { useCollegeDetail } from '../hooks/useCollegeDetail'
+import Skeleton from '../components/Skeleton'
+import { ApiError } from '../api/client'
 
 function DetailPage() {
   const { id } = useParams<{ id: string }>()
-  const { data, isLoading, isError, error } = useCollegeDetail(id)
+  const { data, isLoading, isError, error, refetch } = useCollegeDetail(id)
 
   if (isLoading) {
     return (
       <div className="min-h-screen bg-surface-muted p-6">
-        <p className="text-text-muted text-sm">Loading college details...</p>
+        <div className="max-w-4xl mx-auto flex flex-col gap-6">
+          <Skeleton className="h-4 w-32" />
+          <div className="bg-surface border border-border rounded-lg p-6 flex flex-col gap-3">
+            <Skeleton className="h-7 w-1/2" />
+            <Skeleton className="h-4 w-1/3" />
+            <Skeleton className="h-4 w-1/4" />
+          </div>
+          <div className="bg-surface border border-border rounded-lg p-6 flex flex-col gap-3">
+            <Skeleton className="h-5 w-24" />
+            <Skeleton className="h-16 w-full" />
+          </div>
+        </div>
       </div>
     )
   }
 
   if (isError) {
+    const isNotFound = error instanceof ApiError && error.status === 404
+
     return (
       <div className="min-h-screen bg-surface-muted p-6">
-        <p className="text-red-600 text-sm">
-          {error instanceof Error ? error.message : 'Failed to load college'}
-        </p>
-        <Link to="/" className="text-primary text-sm hover:underline mt-2 inline-block">
-          ← Back to listing
-        </Link>
+        <div className="max-w-4xl mx-auto flex flex-col gap-4">
+          <Link to="/" className="text-primary text-sm hover:underline w-fit">
+            ← Back to listing
+          </Link>
+          <div role="alert" className="bg-surface border border-red-200 rounded-lg p-6 flex flex-col items-start gap-3">
+            <p className="text-red-600 text-sm font-medium">
+              {isNotFound
+                ? "This college doesn't exist or has been removed."
+                : error instanceof Error
+                  ? error.message
+                  : 'Failed to load college'}
+            </p>
+            {!isNotFound && (
+              <button
+                onClick={() => refetch()}
+                className="px-3 py-1.5 bg-primary text-white rounded text-sm hover:bg-primary-dark transition-colors"
+              >
+                Try Again
+              </button>
+            )}
+          </div>
+        </div>
       </div>
     )
   }

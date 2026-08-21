@@ -15,9 +15,11 @@ function PredictorPage() {
         <PredictorForm onSubmit={mutate} isPending={isPending} />
 
         {isError && (
-          <p className="text-red-600 text-sm">
-            {error instanceof Error ? error.message : 'Prediction failed'}
-          </p>
+          <div className="bg-surface border border-red-200 rounded-lg p-6">
+            <p className="text-red-600 text-sm font-medium">
+              {error instanceof Error ? error.message : 'Prediction failed'}
+            </p>
+          </div>
         )}
 
         {data && (

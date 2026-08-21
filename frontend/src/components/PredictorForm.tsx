@@ -25,11 +25,15 @@ function PredictorForm({ onSubmit, isPending }: PredictorFormProps) {
   return (
     <form
       onSubmit={handleSubmit}
+      aria-label="College predictor form"
       className="bg-surface border border-border rounded-lg p-6 flex flex-col gap-4"
     >
       <div className="flex flex-col gap-1">
-        <label className="text-sm font-medium text-text">Exam</label>
+        <label htmlFor="predictor-exam" className="text-sm font-medium text-text">
+          Exam
+        </label>
         <input
+          id="predictor-exam"
           type="text"
           value={exam}
           onChange={(e) => setExam(e.target.value)}
@@ -39,8 +43,11 @@ function PredictorForm({ onSubmit, isPending }: PredictorFormProps) {
       </div>
 
       <div className="flex flex-col gap-1">
-        <label className="text-sm font-medium text-text">Category</label>
+        <label htmlFor="predictor-category" className="text-sm font-medium text-text">
+          Category
+        </label>
         <select
+          id="predictor-category"
           value={category}
           onChange={(e) => setCategory(e.target.value as Category)}
           className="border border-border rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-light"
@@ -54,8 +61,11 @@ function PredictorForm({ onSubmit, isPending }: PredictorFormProps) {
       </div>
 
       <div className="flex flex-col gap-1">
-        <label className="text-sm font-medium text-text">Your Rank</label>
+        <label htmlFor="predictor-rank" className="text-sm font-medium text-text">
+          Your Rank
+        </label>
         <input
+          id="predictor-rank"
           type="number"
           value={rank}
           onChange={(e) => setRank(e.target.value)}
@@ -68,7 +78,8 @@ function PredictorForm({ onSubmit, isPending }: PredictorFormProps) {
       <button
         type="submit"
         disabled={!isValid || isPending}
-        className="bg-primary text-white rounded px-4 py-2 text-sm hover:bg-primary-dark transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+        aria-busy={isPending}
+        className="bg-primary text-white rounded px-4 py-2 text-sm hover:bg-primary-dark transition-colors disabled:opacity-40 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-primary-light"
       >
         {isPending ? 'Predicting...' : 'Predict Colleges'}
       </button>

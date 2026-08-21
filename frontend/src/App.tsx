@@ -9,12 +9,14 @@ function App() {
   return (
     <>
       <NavBar />
-      <Routes>
-        <Route path="/" element={<ListingPage />} />
-        <Route path="/colleges/:id" element={<DetailPage />} />
-        <Route path="/compare" element={<ComparePage />} />
-        <Route path="/predictor" element={<PredictorPage />} />
-      </Routes>
+      <main>
+        <Routes>
+          <Route path="/" element={<ListingPage />} />
+          <Route path="/colleges/:id" element={<DetailPage />} />
+          <Route path="/compare" element={<ComparePage />} />
+          <Route path="/predictor" element={<PredictorPage />} />
+        </Routes>
+      </main>
     </>
   )
 }
