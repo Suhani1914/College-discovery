@@ -1,5 +1,5 @@
-import { prisma } from "../db";
-import { PredictorInput } from "../validation/predictor.validation";
+import { prisma } from "../db.js";
+import type { PredictorInput } from "../validation/predictor.validation.js";
 
 export async function predictColleges(input: PredictorInput) {
   const { exam, category, rank } = input;
@@ -26,7 +26,7 @@ export async function predictColleges(input: PredictorInput) {
     take: 20,
   });
 
-  return cutoffs.map((c) => ({
+return cutoffs.map((c: { closingRank: number; college: unknown }) => ({
     college: c.college,
     closingRank: c.closingRank,
   }));

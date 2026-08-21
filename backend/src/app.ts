@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
-import collegeRoutes from "./routes/college.routes";
-import predictorRoutes from "./routes/predictor.routes";
+import collegeRoutes from "./routes/college.routes.js";
+import predictorRoutes from "./routes/predictor.routes.js";
 
 const app = express();
 

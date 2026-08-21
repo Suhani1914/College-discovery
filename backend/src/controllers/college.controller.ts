@@ -1,14 +1,14 @@
-import { Request, Response, NextFunction } from "express";
+import type { Request, Response, NextFunction } from "express";
 import {
   collegeListQuerySchema,
   collegeIdParamSchema,
   compareQuerySchema,
-} from "../validation/college.validation";
+} from "../validation/college.validation.js";
 import {
   getColleges,
   getCollegeById,
   compareColleges,
-} from "../services/college.service";
+} from "../services/college.service.js";
 
 export async function listColleges(req: Request, res: Response, next: NextFunction) {
   try {

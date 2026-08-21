@@ -1,5 +1,5 @@
-import { prisma } from "../db";
-import { CollegeListQuery } from "../validation/college.validation";
+import { prisma } from "../db.js";
+import type { CollegeListQuery } from "../validation/college.validation.js";
 
 export async function getColleges(query: CollegeListQuery) {
   const { search, city, maxFees, minRating, page, limit } = query;

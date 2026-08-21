@@ -1,6 +1,6 @@
-import { Request, Response, NextFunction } from "express";
-import { predictorInputSchema } from "../validation/predictor.validation";
-import { predictColleges } from "../services/predictor.service";
+import type { Request, Response, NextFunction } from "express";
+import { predictorInputSchema } from "../validation/predictor.validation.js";
+import { predictColleges } from "../services/predictor.service.js";
 
 export async function predict(req: Request, res: Response, next: NextFunction) {
   try {
